@@ -1,0 +1,14 @@
+{
+    "db": {
+        "host": "localhost",
+        "username": "root",
+        "password": "db password",
+        "name": "db name",
+        "max_open_cons": 30,
+        "max_idle_cons": 30
+    },
+    "listener": {
+        "type": "udp",
+        "data": "0.0.0.0:53"
+    }
+}
