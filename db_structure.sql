@@ -13,10 +13,10 @@ CREATE TABLE `dns_records` (
   `record_type` text NOT NULL,
   `record_name` text NOT NULL,
   `record_value` text NOT NULL,
-  `record_ttl` bigint(20) NOT NULL,
-  `srv_priority` bigint(20) NOT NULL,
-  `srv_weight` bigint(20) NOT NULL,
-  `srv_port` bigint(20) NOT NULL,
+  `record_ttl` bigint(20) NOT NULL DEFAULT 3600,
+  `srv_priority` bigint(20) NOT NULL DEFAULT 0,
+  `srv_weight` bigint(20) NOT NULL DEFAULT 0,
+  `srv_port` bigint(20) NOT NULL DEFAULT 0,
   `srv_target` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

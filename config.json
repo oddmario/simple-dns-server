@@ -10,5 +10,9 @@
     "listener": {
         "type": "udp",
         "data": "0.0.0.0:53"
+    },
+    "process_unstored_dns_queries": {
+        "is_enabled": false,
+        "dns_server": "8.8.8.8:53"
     }
 }

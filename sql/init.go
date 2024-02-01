@@ -2,6 +2,7 @@ package sql
 
 import (
 	"database/sql"
+	"log"
 	"mario/simple-dns-server/utils"
 	"time"
 
@@ -15,7 +16,7 @@ func InitDb() bool {
 
 	database, err := sql.Open("mysql", DB_USERNAME+":"+DB_PASSWORD+"@tcp("+DB_HOST+":3306)/"+DB_NAME)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	database.SetConnMaxLifetime(time.Minute * 3)
 	database.SetMaxOpenConns(int(utils.Config.Get("db.max_open_cons").Int()))
