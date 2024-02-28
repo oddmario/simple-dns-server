@@ -14,5 +14,6 @@
     "process_unstored_dns_queries": {
         "is_enabled": false,
         "dns_server": "8.8.8.8:53"
-    }
+    },
+    "disposable_mode": false
 }

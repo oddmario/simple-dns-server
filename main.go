@@ -5,9 +5,9 @@ import (
 	"net"
 	"strings"
 
+	"mario/simple-dns-server/db"
 	"mario/simple-dns-server/dnsclient"
 	"mario/simple-dns-server/dnsparser"
-	"mario/simple-dns-server/sql"
 	"mario/simple-dns-server/utils"
 
 	"github.com/miekg/dns"
@@ -80,8 +80,8 @@ func main() {
 	// https://gist.github.com/walm/0d67b4fb2d5daf3edd4fad3e13b162cb
 
 	utils.LoadConfig()
-	sql.InitDb()
-	defer sql.Db.Close()
+	db.InitDb()
+	defer db.Db.Close()
 
 	dns.HandleFunc(".", handleDnsRequest)
 

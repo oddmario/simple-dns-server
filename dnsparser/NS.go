@@ -1,13 +1,14 @@
 package dnsparser
 
 import (
-	"mario/simple-dns-server/sql"
+	"mario/simple-dns-server/db"
+	"mario/simple-dns-server/utils"
 
 	"github.com/miekg/dns"
 )
 
 func NS(m *dns.Msg, name_dot, name_nodot string) bool {
-	res, err := sql.Db.Query("SELECT id, record_type, record_name, record_value, record_ttl FROM dns_records WHERE record_name = ? AND record_type = 'NS'", name_nodot)
+	res, err := db.EasyQuery("SELECT id, record_type, record_name, record_value, record_ttl FROM dns_records WHERE record_name = ? AND record_type = 'NS'", name_nodot)
 	if err != nil {
 		// an error has occured while preparing the SQL statement
 		return false
@@ -36,6 +37,10 @@ func NS(m *dns.Msg, name_dot, name_nodot string) bool {
 		r.Ns = dns.Fqdn(record_value)
 
 		m.Answer = append(m.Answer, r)
+
+		if utils.IsDisposableMode {
+			db.EasyExec("DELETE FROM dns_records WHERE id = ?", record_id)
+		}
 	}
 
 	if !recordsFound {

@@ -1,13 +1,14 @@
 package dnsparser
 
 import (
-	"mario/simple-dns-server/sql"
+	"mario/simple-dns-server/db"
+	"mario/simple-dns-server/utils"
 
 	"github.com/miekg/dns"
 )
 
 func SRV(m *dns.Msg, name_dot, name_nodot string) bool {
-	res, err := sql.Db.Query("SELECT id, record_type, record_name, record_value, record_ttl, srv_priority, srv_weight, srv_port, srv_target FROM dns_records WHERE record_name = ? AND record_type = 'SRV'", name_nodot)
+	res, err := db.EasyQuery("SELECT id, record_type, record_name, record_value, record_ttl, srv_priority, srv_weight, srv_port, srv_target FROM dns_records WHERE record_name = ? AND record_type = 'SRV'", name_nodot)
 	if err != nil {
 		// an error has occured while preparing the SQL statement
 		return false
@@ -43,6 +44,10 @@ func SRV(m *dns.Msg, name_dot, name_nodot string) bool {
 		r.Target = dns.Fqdn(srv_target)
 
 		m.Answer = append(m.Answer, r)
+
+		if utils.IsDisposableMode {
+			db.EasyExec("DELETE FROM dns_records WHERE id = ?", record_id)
+		}
 	}
 
 	if !recordsFound {
