@@ -2,13 +2,12 @@ package dnsparser
 
 import (
 	"mario/simple-dns-server/db"
-	"mario/simple-dns-server/utils"
 
 	"github.com/miekg/dns"
 )
 
 func SRV(m *dns.Msg, name_dot, name_nodot string) bool {
-	res, err := db.EasyQuery("SELECT id, record_type, record_name, record_value, record_ttl, srv_priority, srv_weight, srv_port, srv_target FROM dns_records WHERE record_name = ? AND record_type = 'SRV'", name_nodot)
+	res, err := db.EasyQuery("SELECT id, record_type, record_name, record_value, record_ttl, srv_priority, srv_weight, srv_port, srv_target, is_disposable FROM dns_records WHERE record_name = ? AND record_type = 'SRV'", name_nodot)
 	if err != nil {
 		// an error has occured while preparing the SQL statement
 		return false
@@ -29,8 +28,9 @@ func SRV(m *dns.Msg, name_dot, name_nodot string) bool {
 		var srv_weight int64
 		var srv_port int64
 		var srv_target string
+		var record_isdisposable int64
 
-		err = res.Scan(&record_id, &record_type, &record_name, &record_value, &record_ttl, &srv_priority, &srv_weight, &srv_port, &srv_target)
+		err = res.Scan(&record_id, &record_type, &record_name, &record_value, &record_ttl, &srv_priority, &srv_weight, &srv_port, &srv_target, &record_isdisposable)
 		if err != nil {
 			// an error has occured
 			return false
@@ -45,7 +45,7 @@ func SRV(m *dns.Msg, name_dot, name_nodot string) bool {
 
 		m.Answer = append(m.Answer, r)
 
-		if utils.IsDisposableMode {
+		if record_isdisposable > 0 {
 			db.EasyExec("DELETE FROM dns_records WHERE id = ?", record_id)
 		}
 	}

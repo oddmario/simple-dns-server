@@ -9,6 +9,7 @@ import (
 	"mario/simple-dns-server/dnsclient"
 	"mario/simple-dns-server/dnsparser"
 	"mario/simple-dns-server/utils"
+	"mario/simple-dns-server/workers"
 
 	"github.com/miekg/dns"
 )
@@ -82,6 +83,8 @@ func main() {
 	utils.LoadConfig()
 	db.InitDb()
 	defer db.Db.Close()
+
+	workers.Init()
 
 	dns.HandleFunc(".", handleDnsRequest)
 

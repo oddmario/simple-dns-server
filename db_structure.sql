@@ -17,7 +17,9 @@ CREATE TABLE `dns_records` (
   `srv_priority` bigint(20) NOT NULL DEFAULT 0,
   `srv_weight` bigint(20) NOT NULL DEFAULT 0,
   `srv_port` bigint(20) NOT NULL DEFAULT 0,
-  `srv_target` text NOT NULL
+  `srv_target` text NOT NULL,
+  `is_disposable` int(11) NOT NULL DEFAULT 0,
+  `delete_at_timestamp` bigint(20) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
