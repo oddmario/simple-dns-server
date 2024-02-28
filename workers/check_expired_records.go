@@ -15,6 +15,6 @@ func checkExpiredRecords() {
 		currTimestamp := time.Now().Unix()
 		currTimestampStr := utils.I64ToStr(currTimestamp)
 
-		db.EasyExec("DELETE FROM dns_records WHERE delete_at_timestamp >= " + currTimestampStr)
+		db.EasyExec("DELETE FROM dns_records WHERE " + currTimestampStr + " >= delete_at_timestamp AND delete_at_timestamp > 0")
 	}
 }
