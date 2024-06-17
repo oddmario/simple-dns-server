@@ -32,7 +32,7 @@ func InitDb() {
 		log.Fatal(err)
 	}
 
-	database.SetConnMaxLifetime(time.Minute * 3)
+	database.SetConnMaxLifetime(time.Second * 15)
 	database.SetMaxOpenConns(int(utils.Config.Get("db.max_open_cons").Int()))
 	database.SetMaxIdleConns(int(utils.Config.Get("db.max_idle_cons").Int()))
 
