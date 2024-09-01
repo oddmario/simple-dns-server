@@ -9,7 +9,7 @@ Description=ArgonDNS
 [Service]
 User=root
 WorkingDirectory=/root/argondns
-LimitNOFILE=1048576
+LimitNOFILE=2097152
 TasksMax=infinity
 ExecStart=/root/argondns/simpledns_linux_amd64
 Restart=on-failure
