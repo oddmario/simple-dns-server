@@ -7,6 +7,10 @@ import (
 )
 
 func checkExpiredRecords() {
+	if utils.Config.Get("mode").String() != "db" {
+		return
+	}
+
 	t := time.NewTicker(time.Second * 10)
 
 	defer t.Stop()

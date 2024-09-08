@@ -1,10 +1,15 @@
 package main
 
 import (
+	"errors"
+	"fmt"
 	"log"
 	"net"
+	"os"
+	"path/filepath"
 	"strings"
 
+	"mario/simple-dns-server/constants"
 	"mario/simple-dns-server/db"
 	"mario/simple-dns-server/dnsclient"
 	"mario/simple-dns-server/dnsparser"
@@ -80,9 +85,26 @@ func handleDnsRequest(w dns.ResponseWriter, r *dns.Msg) {
 func main() {
 	// https://gist.github.com/walm/0d67b4fb2d5daf3edd4fad3e13b162cb
 
+	args := os.Args[1:]
+
+	if len(args) >= 1 {
+		constants.ConfigFilePath = args[0]
+	} else {
+		constants.ConfigFilePath, _ = filepath.Abs("./config.json")
+	}
+
+	if _, err := os.Stat(constants.ConfigFilePath); errors.Is(err, os.ErrNotExist) {
+		log.Fatal("The specified configuration file does not exist.")
+	}
+
+	fmt.Println("[INFO] Starting Simple DNS server v" + constants.Version + "...")
+
 	utils.LoadConfig()
-	db.InitDb()
-	defer db.Db.Close()
+
+	if utils.Config.Get("mode").String() == "db" {
+		db.InitDb()
+		defer db.Db.Close()
+	}
 
 	workers.Init()
 
@@ -92,7 +114,9 @@ func main() {
 	var listenerType string = utils.Config.Get("listener.type").String()
 
 	server := &dns.Server{Addr: listenerData, Net: listenerType}
+
 	log.Printf("Starting at %s\n", listenerData)
+
 	err := server.ListenAndServe()
 	defer server.Shutdown()
 	if err != nil {
