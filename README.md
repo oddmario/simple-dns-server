@@ -11,7 +11,7 @@ A tiny DNS server that is capable of serving records configured in a MySQL table
 
 - `process_unstored_dns_queries`: Should the DNS server also accept queries of records that are not stored in your database table/static records configuration? Enable this if yes.
 
-- `static_records`: Configure your static records here, one per JSON array. This works only if `mode` is set to `static_records`
+- `static_records`: Configure your static records here, one per JSON object. This works only if `mode` is set to `static_records`
 
 ## 🛠️ Installation as a service
 
