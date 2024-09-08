@@ -1,0 +1,8 @@
+services:
+  simpledns:
+    image: ghcr.io/oddmario/simple-dns-server
+    restart: always
+    ports:
+      - 53:53/udp
+    volumes:
+      - ./config.json:/config.json:ro
