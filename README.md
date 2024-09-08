@@ -41,7 +41,7 @@ WantedBy=multi-user.target
 
 ```
 6. Port 53 (the DNS server port) is usually in use by default. To solve this, follow https://unix.stackexchange.com/a/676977/405697 then run `systemctl restart systemd-resolved`
-7. Make sure that there are no other DNS servers (such as bind9) are running
+7. Make sure that no other DNS servers (such as bind9) are running
 8. Enable the Simple DNS server service on startup & start it now:
 ```
 systemctl enable --now simpledns.service

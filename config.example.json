@@ -21,7 +21,7 @@
             "type": "A",
             "name": "",
             "value": "",
-            "ttl": 0,
+            "ttl": 30,
             "srv_priority": 0,
             "srv_weight": 0,
             "srv_port": 0,
