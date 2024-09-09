@@ -1,5 +1,5 @@
 {
-    "mode": "db",
+    "mode": "static_records",
     "db": {
         "host": "localhost",
         "username": "root",
