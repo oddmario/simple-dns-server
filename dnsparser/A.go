@@ -9,7 +9,7 @@ import (
 )
 
 func A(m *dns.Msg, name_dot, name_nodot string) bool {
-	recordsFound, records := records.GetDNSRecord(name_nodot, "A")
+	recordsFound, records := records.GetDNSRecords(name_nodot, "A")
 
 	if !recordsFound {
 		// DNS record(s) was/were not found

@@ -3,7 +3,7 @@ package db
 import (
 	"database/sql"
 	"log"
-	"mario/simple-dns-server/utils"
+	"mario/simple-dns-server/config"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -17,16 +17,16 @@ var DB_NAME string
 var Db *sql.DB
 
 func InitDbCredentials() {
-	DB_HOST = utils.Config.Get("db.host").String()
-	DB_USERNAME = utils.Config.Get("db.username").String()
-	DB_PASSWORD = utils.Config.Get("db.password").String()
-	DB_NAME = utils.Config.Get("db.name").String()
+	DB_HOST = config.Config.DbHost
+	DB_USERNAME = config.Config.DbUsername
+	DB_PASSWORD = config.Config.DbPassword
+	DB_NAME = config.Config.DbName
 }
 
 func InitDb() {
 	InitDbCredentials()
 
-	database, err := sql.Open("mysql", DB_USERNAME+":"+DB_PASSWORD+"@tcp("+DB_HOST+":3306)/"+DB_NAME)
+	database, err := sql.Open("mysql", DB_USERNAME+":"+DB_PASSWORD+"@tcp("+DB_HOST+":3306)/"+DB_NAME+"?collation=utf8mb4_general_ci")
 
 	if err != nil {
 		log.Fatal(err)
@@ -34,8 +34,8 @@ func InitDb() {
 
 	database.SetConnMaxLifetime(time.Minute * 3)
 	database.SetConnMaxIdleTime(time.Minute * 3)
-	database.SetMaxOpenConns(int(utils.Config.Get("db.max_open_cons").Int()))
-	database.SetMaxIdleConns(int(utils.Config.Get("db.max_idle_cons").Int()))
+	database.SetMaxOpenConns(int(config.Config.DbMaxOpenCons))
+	database.SetMaxIdleConns(int(config.Config.DbMaxIdleCons))
 
 	Db = database
 }

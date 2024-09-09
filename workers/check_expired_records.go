@@ -1,13 +1,14 @@
 package workers
 
 import (
+	"mario/simple-dns-server/config"
 	"mario/simple-dns-server/db"
 	"mario/simple-dns-server/utils"
 	"time"
 )
 
 func checkExpiredRecords() {
-	if utils.Config.Get("mode").String() != "db" {
+	if config.Config.Mode != "db" {
 		return
 	}
 

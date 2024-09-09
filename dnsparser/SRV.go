@@ -8,7 +8,7 @@ import (
 )
 
 func SRV(m *dns.Msg, name_dot, name_nodot string) bool {
-	recordsFound, records := records.GetDNSRecord(name_nodot, "SRV")
+	recordsFound, records := records.GetDNSRecords(name_nodot, "SRV")
 
 	if !recordsFound {
 		// DNS record(s) was/were not found

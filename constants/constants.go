@@ -1,4 +1,4 @@
 package constants
 
 var ConfigFilePath string = ""
-var Version string = "v1.2"
+var Version string = "1.2.1"
