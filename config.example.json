@@ -1,5 +1,6 @@
 {
     "mode": "static_records",
+    "query_logging": false,
     "db": {
         "host": "localhost",
         "username": "root",

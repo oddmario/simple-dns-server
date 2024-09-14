@@ -5,6 +5,8 @@ A tiny DNS server that is capable of serving records configured in a MySQL table
 
 - `mode`: Can be either `db` if your records are stored in a MySQL database, or `static_records` if your records are static and stored in the configuration JSON file.
 
+- `query_logging`: Should the DNS server log queries made to it? Enable this if yes.
+
 - `db`: The MySQL server & database credentials. This works only if `mode` is set to `db`
 
 - `listener`: The listening/bind settings for the DNS server (usually has to be kept binding on port 53 to be able to accept DNS requests).

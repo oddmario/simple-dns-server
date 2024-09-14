@@ -13,6 +13,7 @@ import (
 var config gjson.Result
 var Config *models.ConfigObject = &models.ConfigObject{
 	Mode:                            "",
+	IsQueryLoggingEnabled:           false,
 	DbHost:                          "",
 	DbUsername:                      "",
 	DbPassword:                      "",
@@ -42,6 +43,7 @@ func LoadConfig() {
 
 func storeEssentialConfigValues() {
 	Config.Mode = config.Get("mode").String()
+	Config.IsQueryLoggingEnabled = config.Get("query_logging").Bool()
 
 	Config.DbHost = config.Get("db.host").String()
 	Config.DbUsername = config.Get("db.username").String()
