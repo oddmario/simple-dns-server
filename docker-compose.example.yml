@@ -1,6 +1,6 @@
 services:
   simpledns:
-    image: ghcr.io/oddmario/simple-dns-server
+    image: ghcr.io/oddmario/simple-dns-server:latest
     restart: always
     ports:
       - 53:53/udp
