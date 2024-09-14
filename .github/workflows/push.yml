@@ -16,7 +16,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         go: ["1.22.6"]
-        goos: [linux, windows]
+        goos: [linux, darwin, windows]
         goarch: [amd64, arm64]
     steps:
       - uses: actions/checkout@v4
