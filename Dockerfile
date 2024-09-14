@@ -18,7 +18,8 @@ FROM gcr.io/distroless/static:latest
 # Copy the compiled binary from the builder stage
 COPY --from=builder /app/simpledns /simpledns
 
-# Set the command to run the application
+# Set the entrypoint to run the application
 ENTRYPOINT ["/simpledns"]
 
+# Expose port 53 for Docker Compose usage
 EXPOSE 53
