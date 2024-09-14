@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.4
+
+### Added
+* Query logging is now disabled by default, can optionally be enabled using the `query_logging` config option.
+
 ## v1.2.3
 
 ### Added
