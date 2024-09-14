@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.2.3
+
+### Added
+* Added support for macOS (Darwin) AMD64 and ARM64 platforms.
+* Added support for the Windows ARM64 platform.
+
+### Fixed
+* Re-introduced support for the Windows AMD64 platform, mistakingly not included in previous release.
+
 ## v1.2.2
 
 ### Added
