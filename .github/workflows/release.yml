@@ -20,8 +20,17 @@ jobs:
         env:
           CGO_ENABLED: 0
         run: |
-          GOARCH=amd64 go build -o simpledns_linux_amd64 -ldflags="-w -s" -trimpath -v .
-          GOARCH=arm64 go build -o simpledns_linux_arm64 -ldflags="-w -s" -trimpath -v .
+          platforms=(
+            "linux amd64 simpledns_linux_amd64"
+            "linux arm64 simpledns_linux_arm64"
+            "windows amd64 simpledns_windows_amd64"
+            "windows arm64 simpledns_windows_arm64"
+          )
+        
+          for platform in "${platforms[@]}"; do
+            set -- $platform
+            GOOS=$1 GOARCH=$2 go build -o $3 -ldflags="-w -s" -trimpath -v .
+          done
 
       - name: Extract changelog
         env:
@@ -35,4 +44,4 @@ jobs:
           draft: true
           prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'beta') || contains(github.ref, 'alpha') }}
           body_path: RELEASE_CHANGELOG
-          files: simpledns_linux_*
+          files: simpledns_*
