@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.6
+
+### Changed
+* Don't set `CGO_ENABLED` to zero while compiling.
+* Updated the `build.py` builder to generate more optimised binaries
+
 ## v1.2.5
 
 ### Fixed
