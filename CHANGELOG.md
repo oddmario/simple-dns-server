@@ -1,6 +1,8 @@
 # Changelog
 
 ## v1.2.5
+
+### Fixed
 * Send the proper DNS rcode as a part of the DNS response/answer
 
 ## v1.2.4
