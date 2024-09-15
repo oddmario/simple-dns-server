@@ -24,7 +24,11 @@ CREATE TABLE `dns_records` (
 
 
 ALTER TABLE `dns_records`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `record_name` (`record_name`(768)),
+  ADD KEY `is_disposable` (`is_disposable`),
+  ADD KEY `delete_at_timestamp` (`delete_at_timestamp`),
+  ADD KEY `record_type` (`record_type`(768));
 
 
 ALTER TABLE `dns_records`
