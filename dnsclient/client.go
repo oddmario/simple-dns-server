@@ -1,12 +1,10 @@
 package dnsclient
 
 import (
-	"errors"
-
 	"github.com/miekg/dns"
 )
 
-func DnsClientUsingQuestion(q dns.Question, server string) ([]dns.RR, error) {
+func DnsClientUsingQuestion(q dns.Question, server string) (*dns.Msg, error) {
 	m := new(dns.Msg)
 	m.Compress = false
 	m.RecursionAvailable = true
@@ -20,22 +18,10 @@ func DnsClientUsingQuestion(q dns.Question, server string) ([]dns.RR, error) {
 		return nil, err
 	}
 
-	answers := in.Answer
-
-	if len(answers) <= 0 {
-		return nil, errors.New("no records found")
-	}
-
-	for _, answer := range answers {
-		if answer.Header().Rrtype != q.Qtype {
-			return nil, errors.New("unexpected DNS type returned from the server")
-		}
-	}
-
-	return answers, nil
+	return in, nil
 }
 
-func DnsClient(fqdn string, dnsType uint16, server string) ([]dns.RR, error) {
+func DnsClient(fqdn string, dnsType uint16, server string) (*dns.Msg, error) {
 	question := dns.Question{
 		Name:   dns.Fqdn(fqdn),
 		Qtype:  dnsType,
@@ -54,7 +40,7 @@ func DnsClient(fqdn string, dnsType uint16, server string) ([]dns.RR, error) {
 			// handle errors here
 		}
 
-		if t, ok := dnsQueryAnswers[0].(*dns.A); ok {
+		if t, ok := dnsQueryAnswers.Answer[0].(*dns.A); ok {
 			// check if the DNS answer is castable to its correct struct
 			// https://pkg.go.dev/github.com/miekg/dns#A
 

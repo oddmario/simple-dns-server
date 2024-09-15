@@ -51,12 +51,19 @@ func parseQuery(m *dns.Msg, remoteAddr net.Addr) {
 		}
 
 		if !didFindRecord && config.Config.IsProcessUnstoredQueriesEnabled {
-			dnsQueryAnswers, err := dnsclient.DnsClientUsingQuestion(q, config.Config.ProcessUnstoredQueries_Server)
+			dnsClientResponse, err := dnsclient.DnsClientUsingQuestion(q, config.Config.ProcessUnstoredQueries_Server)
 			if err == nil {
-				for _, answer := range dnsQueryAnswers {
-					m.Answer = append(m.Answer, answer)
-				}
+				m.Answer = dnsClientResponse.Answer
+				m.Rcode = dnsClientResponse.Rcode
 			}
+		}
+
+		if !didFindRecord && !config.Config.IsProcessUnstoredQueriesEnabled {
+			m.Rcode = dns.RcodeNameError
+		}
+
+		if didFindRecord {
+			m.Rcode = dns.RcodeSuccess // should be the default, but force setting it to make sure
 		}
 	}
 }
