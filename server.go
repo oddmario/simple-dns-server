@@ -16,7 +16,7 @@ func parseQuery(m *dns.Msg, remoteAddr net.Addr) {
 		q.Name = strings.ToLower(q.Name)
 
 		if config.Config.IsQueryLoggingEnabled {
-			go log.Printf("Query for %s from %s\n", q.Name, remoteAddr.String())
+			log.Printf("Query for %s from %s\n", q.Name, remoteAddr.String())
 		}
 
 		lastCharOfQNAME := q.Name[len(q.Name)-1:]

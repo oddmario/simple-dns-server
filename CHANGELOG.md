@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.2.7
+
+### Fixed
+* Fixed the excessive memory usage that was caused by the DNS queries logger.
+
+### Changed
+* Made the MySQL database connections start with the `autocommit=true` option to ensure that any SQL commands take effect immediately.
+
 ## v1.2.6
 
 ### Changed

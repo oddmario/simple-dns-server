@@ -26,7 +26,7 @@ func InitDbCredentials() {
 func InitDb() {
 	InitDbCredentials()
 
-	database, err := sql.Open("mysql", DB_USERNAME+":"+DB_PASSWORD+"@tcp("+DB_HOST+":3306)/"+DB_NAME+"?collation=utf8mb4_general_ci")
+	database, err := sql.Open("mysql", DB_USERNAME+":"+DB_PASSWORD+"@tcp("+DB_HOST+":3306)/"+DB_NAME+"?collation=utf8mb4_general_ci&autocommit=true")
 
 	if err != nil {
 		log.Fatal(err)
