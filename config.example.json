@@ -6,8 +6,8 @@
         "username": "root",
         "password": "db password",
         "name": "db name",
-        "max_open_cons": 0,
-        "max_idle_cons": 100
+        "max_open_cons": 1000,
+        "max_idle_cons": 5
     },
     "listener": {
         "type": "udp",
