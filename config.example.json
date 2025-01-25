@@ -6,7 +6,7 @@
         "username": "root",
         "password": "db password",
         "name": "db name",
-        "max_open_cons": 1000,
+        "max_open_cons": 0,
         "max_idle_cons": 64
     },
     "listener": {
