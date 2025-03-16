@@ -35,7 +35,7 @@ func InitDb() {
 	database.SetConnMaxLifetime(time.Minute * 3)
 	database.SetConnMaxIdleTime(time.Minute * 3)
 	database.SetMaxOpenConns(int(config.Config.DbMaxOpenCons))
-	database.SetMaxIdleConns(int(config.Config.DbMaxIdleCons))
+	database.SetMaxIdleConns(int(config.Config.DbMaxIdleCons)) // it's NEVER recommended to set this to zero because idle connections help prevent some common MariaDB/MySQL issues. see https://stackoverflow.com/a/35889853/8524395
 
 	Db = database
 }

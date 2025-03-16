@@ -7,7 +7,7 @@
         "password": "db password",
         "name": "db name",
         "max_open_cons": 0,
-        "max_idle_cons": 0
+        "max_idle_cons": 100
     },
     "listener": {
         "type": "udp",
