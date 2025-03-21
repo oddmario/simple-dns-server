@@ -33,21 +33,21 @@ def build():
     print("Building for Linux amd64...")
     sys_env['GOARCH'] = "amd64"
     sys_env['GOOS'] = "linux"
-    subprocess.check_output("go build -o bin/simpledns_linux_amd64 -ldflags=\"-w -s\" -trimpath -v", env=sys_env, shell=True)
+    subprocess.check_output("go build -o bin/simpledns_linux_amd64 -ldflags=\"-w -s\" -trimpath", env=sys_env, shell=True)
 
     print("Building for Linux arm64...")
     sys_env['GOARCH'] = "arm64"
     sys_env['GOOS'] = "linux"
-    subprocess.check_output("go build -o bin/simpledns_linux_arm64 -ldflags=\"-w -s\" -trimpath -v", env=sys_env, shell=True)
+    subprocess.check_output("go build -o bin/simpledns_linux_arm64 -ldflags=\"-w -s\" -trimpath", env=sys_env, shell=True)
 
     print("Building for Windows amd64...")
     sys_env['GOARCH'] = "amd64"
     sys_env['GOOS'] = "windows"
-    subprocess.check_output("go build -o bin/simpledns_windows_amd64.exe -ldflags=\"-w -s\" -trimpath -v", env=sys_env, shell=True)
+    subprocess.check_output("go build -o bin/simpledns_windows_amd64.exe -ldflags=\"-w -s\" -trimpath", env=sys_env, shell=True)
 
 def main():
     patcher()
-    cleanGoBuildCache()
+    # cleanGoBuildCache()
     build()
     patcher(True)
 

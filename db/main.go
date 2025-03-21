@@ -32,10 +32,11 @@ func InitDb() {
 		log.Fatal(err)
 	}
 
-	database.SetConnMaxLifetime(time.Minute * 3)
-	database.SetConnMaxIdleTime(time.Minute * 3)
+	// https://www.alexedwards.net/blog/configuring-sqldb & https://go.dev/doc/database/manage-connections
+	database.SetConnMaxLifetime(0) // default value (no expiry; this keeps the expiry up to the idle connection timeout)
+	database.SetConnMaxIdleTime(time.Minute * 2)
 	database.SetMaxOpenConns(int(config.Config.DbMaxOpenCons))
-	database.SetMaxIdleConns(int(config.Config.DbMaxIdleCons)) // it's NEVER recommended to set this to zero because idle connections help prevent some common MariaDB/MySQL issues. see https://stackoverflow.com/a/35889853/8524395
+	database.SetMaxIdleConns(int(config.Config.DbMaxIdleCons)) // it's NEVER recommended to set this to zero (which disables idle connections overall) because idle connections help prevent some common MariaDB/MySQL issues. see https://stackoverflow.com/a/35889853/8524395
 
 	Db = database
 }
