@@ -14,6 +14,7 @@ var config gjson.Result
 var Config *models.ConfigObject = &models.ConfigObject{
 	Mode:                            "",
 	IsQueryLoggingEnabled:           false,
+	DbUnixSock:                      "",
 	DbHost:                          "",
 	DbUsername:                      "",
 	DbPassword:                      "",
@@ -46,6 +47,7 @@ func storeEssentialConfigValues() {
 	Config.IsQueryLoggingEnabled = config.Get("query_logging").Bool()
 
 	Config.DbHost = config.Get("db.host").String()
+	Config.DbUnixSock = config.Get("db.unix_sock").String()
 	Config.DbUsername = config.Get("db.username").String()
 	Config.DbPassword = config.Get("db.password").String()
 	Config.DbName = config.Get("db.name").String()

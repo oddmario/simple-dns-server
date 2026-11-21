@@ -3,6 +3,7 @@ package models
 type ConfigObject struct {
 	Mode                            string
 	IsQueryLoggingEnabled           bool
+	DbUnixSock                      string
 	DbHost                          string
 	DbUsername                      string
 	DbPassword                      string

@@ -2,7 +2,8 @@
     "mode": "static_records",
     "query_logging": false,
     "db": {
-        "host": "localhost",
+        "host": "localhost:3306",
+        "unix_sock": "/var/lib/mysql/mysql.sock",
         "username": "root",
         "password": "db password",
         "name": "db name",
